@@ -66,7 +66,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authorization\Account.vb" />
+    <Compile Include="BaseMethods\NetHelper.vb" />
     <Compile Include="Connection\ConnectionSetting.vb" />
+    <Compile Include="Dtos\UserLoginDto.vb" />
+    <Compile Include="Exception\UserException.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
