@@ -4,7 +4,7 @@ Imports System.Text
 Imports System.Net
 Imports FTSClientLibrary.Dtos
 Imports FTSClientLibrary.Exceptions
-Namespace Authorization
+Namespace Client
     ''' <summary>
     ''' 表示一个FTS的用户
     ''' </summary>
@@ -28,6 +28,10 @@ Namespace Authorization
         ''' <param name="Password">账户的密码</param>
         ''' <param name="RememberMe">是否保持登录状态</param>
         Public Function Login(Password As String, RememberMe As Boolean) As Boolean
+            '判断是否登录
+            If Me.IsLogin = True Then
+                Throw New UserException(My.Resources.UserException_HasLogined)
+            End If
             Dim ulo As New UserLoginDto() With {.UserName = Me.UserName, .Password = Password, .RememberMe = RememberMe}
             Dim rr As RequestResponse = NetHelper.SendToUrl("api/account/login", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(ulo)), Nothing, "POST")
             If rr.StatusCode = HttpStatusCode.Unauthorized Then
@@ -44,6 +48,10 @@ Namespace Authorization
         ''' 注销登录
         ''' </summary>
         Public Sub Logoff()
+            '判断是否已经登录
+            If Me.IsLogin = False Then
+                Throw New UserException(My.Resources.UserException_HasLogoff)
+            End If
             Dim rr As RequestResponse = NetHelper.RequestToUrl("api/account/logoff", Me.cookies, "POST")
             If Not rr.StatusCode = HttpStatusCode.NoContent Then
                 Throw New UserException(rr.StatusDescription)
@@ -85,6 +93,20 @@ Namespace Authorization
             End If
         End Function
 
+        ''' <summary>
+        ''' 判断该用户是否已经登录
+        ''' </summary>
+        Public ReadOnly Property IsLogin As Boolean
+            Get
+                Try
+                    Me.GetUserInfo()
+                    Return True
+                Catch ex As WebException
+                    If ex.Status = WebExceptionStatus.ProtocolError Then Return False
+                    Throw New UserException(ex.Message) '发生别的错误
+                End Try
+            End Get
+        End Property
         Public Property Id As Integer
         Public Property UserName As String
         Public Property DisplayName As String

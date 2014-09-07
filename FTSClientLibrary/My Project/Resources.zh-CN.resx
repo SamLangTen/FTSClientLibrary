@@ -118,9 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="UserException_HasLogined" xml:space="preserve">
-    <value>This Account reference has been logined.</value>
+    <value>此Account实例已经登录了</value>
   </data>
   <data name="UserException_HasLogoff" xml:space="preserve">
-    <value>This Account reference hasn't been logined.</value>
+    <value>此Account实例没有登录</value>
   </data>
 </root>
