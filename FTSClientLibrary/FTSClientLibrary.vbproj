@@ -69,8 +69,10 @@
     <Compile Include="BaseMethods\NetHelper.vb" />
     <Compile Include="Connection\ConnectionSetting.vb" />
     <Compile Include="Dtos\UserChangePasswordDto.vb" />
+    <Compile Include="Dtos\UserCreationDto.vb" />
     <Compile Include="Dtos\UserInfoDto.vb" />
     <Compile Include="Dtos\UserLoginDto.vb" />
+    <Compile Include="Dtos\UserUpdateDto.vb" />
     <Compile Include="Exception\UserException.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -87,6 +89,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Users\User.vb" />
     <Compile Include="Users\UserManager.vb" />
   </ItemGroup>
   <ItemGroup>
