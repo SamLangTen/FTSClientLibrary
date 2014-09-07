@@ -24,6 +24,12 @@ Imports FTSClientLibrary.Authorization
         acc.Roles.ToList().ForEach(Sub(r)
                                        Console.WriteLine(r)
                                    End Sub)
+    End Sub
 
+    <TestMethod()> Public Sub TestAccountChangePass()
+        ConnectionSetting.DomainName = "http://failuretest.chinacloudsites.cn"
+        Dim acc As New Account("sms")
+        acc.Login("aaaaaaa", True)
+        Console.WriteLine(acc.ChangePassword("aaaaaaa", "1111111"))
     End Sub
 End Class

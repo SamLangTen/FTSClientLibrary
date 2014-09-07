@@ -10,7 +10,7 @@ Namespace Authorization
     ''' </summary>
     Public Class Account
 #Region "Private Members"
-        Private cookies As CookieContainer
+        Friend cookies As CookieContainer
 #End Region
 #Region "Public Members"
 
@@ -75,7 +75,7 @@ Namespace Authorization
         ''' <param name="NewPassword">新的密码</param>
         Public Function ChangePassword(OldPassword As String, NewPassword As String) As Boolean
             Dim ucp As New UserChangePasswordDto() With {.CurrentPassword = OldPassword, .NewPassword = NewPassword, .ConfirmPassword = NewPassword}
-            Dim rr As RequestResponse = NetHelper.SendToUrl("api/Account/ChangePassword", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(ucp)), Me.cookies, "POST")
+            Dim rr As RequestResponse = NetHelper.SendToUrl("api/account/ChangePassword", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(ucp)), Me.cookies, "POST")
             If rr.StatusCode = HttpStatusCode.Unauthorized Then
                 Return False
             ElseIf rr.StatusCode = HttpStatusCode.Accepted Then
