@@ -42,6 +42,17 @@ Namespace Client
             If rr.StatusCode <> HttpStatusCode.Accepted Then Throw New UserException(rr.StatusDescription)
         End Sub
 
+        ''' <summary>
+        ''' 设置一个用户的密码
+        ''' </summary>
+        ''' <param name="Id">用户Id</param>
+        ''' <param name="Password">新密码</param>
+        ''' <remarks></remarks>
+        Public Sub SetPassword(Id As Integer, Password As String)
+            Dim rr As RequestResponse = NetHelper.SendToUrl("api/Identity/Users/" + Id.ToString() + "/SetPassword", Encoding.UTF8.GetBytes("{""password"": """ + Password + """,""confirmPassword"": """ + Password + """}"), Me.actionAccount.cookies, "PUT")
+            If rr.StatusCode <> HttpStatusCode.Accepted Then Throw New UserException(rr.StatusDescription)
+        End Sub
+
 #End Region
     End Class
 

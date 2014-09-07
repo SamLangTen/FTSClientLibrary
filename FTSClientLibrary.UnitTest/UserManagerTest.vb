@@ -31,4 +31,11 @@ Imports FTSClientLibrary.Client
         Dim um As New UserManger(acc)
         um.UpdateUser(uc)
     End Sub
+    <TestMethod()> Public Sub TestUserSetPassword()
+        ConnectionSetting.DomainName = "http://failuretest.chinacloudsites.cn"
+        Dim acc As New Account("sms")
+        acc.Login("1111111", True)
+        Dim um As New UserManger(acc)
+        um.SetPassword(21, "bbbbbbb")
+    End Sub
 End Class
