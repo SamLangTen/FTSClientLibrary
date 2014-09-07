@@ -4,10 +4,11 @@ Imports FTSClientLibrary.Connection
 Imports FTSClientLibrary.Authorization
 <TestClass()> Public Class AuthorizationTest
 
-    <TestMethod()> Public Sub TestAccountLogin()
+    <TestMethod()> Public Sub TestAccountLoginAndLogoff()
         ConnectionSetting.DomainName = "http://failuretest.chinacloudsites.cn"
         Dim acc As New Account("sms")
         acc.Login("1111111", True)
+        acc.Logoff()
     End Sub
 
 End Class

@@ -29,7 +29,19 @@ Namespace Authorization
         ''' <param name="RememberMe">是否保持登录状态</param>
         Public Sub Login(Password As String, RememberMe As Boolean)
             Dim ulo As New UserLoginDto() With {.UserName = Me.UserName, .Password = Password, .RememberMe = RememberMe}
-            Dim rr As RequestResponse = NetHelper.PostToUrl("api/account/login", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(ulo)), Nothing)
+            Dim rr As RequestResponse = NetHelper.SendToUrl("api/account/login", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(ulo)), Nothing, "POST")
+            If Not rr.StatusCode = HttpStatusCode.NoContent Then
+                Throw New UserException(rr.StatusDescription)
+            Else
+                Me.cookies = rr.Cookies
+            End If
+        End Sub
+
+        ''' <summary>
+        ''' 注销登录
+        ''' </summary>
+        Public Sub Logoff()
+            Dim rr As RequestResponse = NetHelper.RequestToUrl("api/account/logoff", Me.cookies, "POST")
             If Not rr.StatusCode = HttpStatusCode.NoContent Then
                 Throw New UserException(rr.StatusDescription)
             End If
