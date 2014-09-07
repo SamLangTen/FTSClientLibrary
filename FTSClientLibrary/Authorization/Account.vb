@@ -27,15 +27,18 @@ Namespace Authorization
         ''' </summary>
         ''' <param name="Password">账户的密码</param>
         ''' <param name="RememberMe">是否保持登录状态</param>
-        Public Sub Login(Password As String, RememberMe As Boolean)
+        Public Function Login(Password As String, RememberMe As Boolean) As Boolean
             Dim ulo As New UserLoginDto() With {.UserName = Me.UserName, .Password = Password, .RememberMe = RememberMe}
             Dim rr As RequestResponse = NetHelper.SendToUrl("api/account/login", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(ulo)), Nothing, "POST")
-            If Not rr.StatusCode = HttpStatusCode.NoContent Then
-                Throw New UserException(rr.StatusDescription)
-            Else
+            If rr.StatusCode = HttpStatusCode.Unauthorized Then
+                Return False
+            ElseIf rr.StatusCode = HttpStatusCode.NoContent Then
                 Me.cookies = rr.Cookies
+                Return True
+            Else
+                Throw New UserException(rr.StatusDescription)
             End If
-        End Sub
+        End Function
 
         ''' <summary>
         ''' 注销登录
@@ -46,6 +49,41 @@ Namespace Authorization
                 Throw New UserException(rr.StatusDescription)
             End If
         End Sub
+
+        ''' <summary>
+        ''' 获取用户信息
+        ''' </summary>
+        Public Sub GetUserInfo()
+            Dim rr As RequestResponse = NetHelper.RequestToUrl("api/account/myinfo", Me.cookies, "GET")
+            If rr.StatusCode = HttpStatusCode.OK Then
+                Dim info As UserInfoDto = JsonConvert.DeserializeObject(rr.Contents, GetType(UserInfoDto))
+                Me.Id = info.Id
+                Me.UserName = info.UserName
+                Me.DisplayName = info.DisplayName
+                Me.Grade = info.Grade
+                Me.Class = info.Class
+                Me.Roles = info.Roles
+            Else
+                Throw New UserException(rr.StatusDescription)
+            End If
+        End Sub
+
+        ''' <summary>
+        ''' 更换密码
+        ''' </summary>
+        ''' <param name="OldPassword">旧的密码</param>
+        ''' <param name="NewPassword">新的密码</param>
+        Public Function ChangePassword(OldPassword As String, NewPassword As String) As Boolean
+            Dim ucp As New UserChangePasswordDto() With {.CurrentPassword = OldPassword, .NewPassword = NewPassword, .ConfirmPassword = NewPassword}
+            Dim rr As RequestResponse = NetHelper.SendToUrl("api/Account/ChangePassword", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(ucp)), Me.cookies, "POST")
+            If rr.StatusCode = HttpStatusCode.Unauthorized Then
+                Return False
+            ElseIf rr.StatusCode = HttpStatusCode.Accepted Then
+                Return True
+            Else
+                Throw New UserException(rr.StatusDescription)
+            End If
+        End Function
 
         Public Property Id As Integer
         Public Property UserName As String
