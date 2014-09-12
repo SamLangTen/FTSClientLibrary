@@ -53,6 +53,16 @@ Namespace Client
             If rr.StatusCode <> HttpStatusCode.Accepted Then Throw New UserException(rr.StatusDescription)
         End Sub
 
+        ''' <summary>
+        ''' 获取所有的用户
+        ''' </summary>
+        Public Function GetUsers() As User()
+            Dim rr As RequestResponse = NetHelper.RequestToUrl("api/Identity/Users", Me.actionAccount.cookies, "GET")
+            If rr.StatusCode <> HttpStatusCode.OK Then Throw New UserException(rr.StatusDescription)
+            Dim list As List(Of UserInfoDto) = JsonConvert.DeserializeObject(rr.Contents, GetType(List(Of UserInfoDto)))
+            Dim query = (From item In list Select New User() With {.Grade = item.Grade, .Class = item.Class, .DisplayName = item.DisplayName, .Id = item.Id, .IsEnabled = item.IsEnable, .Roles = item.Roles, .UserName = item.UserName})
+            Return query.ToArray()
+        End Function
 #End Region
     End Class
 

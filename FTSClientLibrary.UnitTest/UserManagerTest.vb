@@ -17,6 +17,15 @@ Imports FTSClientLibrary.Client
         Dim um As New UserManger(acc)
         um.CreateUser(uc, "1111111")
     End Sub
+    <TestMethod()> Public Sub TestGetAllUsers()
+        ConnectionSetting.DomainName = "http://failuretest.chinacloudsites.cn"
+        Dim acc As New Account("sms")
+        acc.Login("1111111", True)
+        Dim um As New UserManger(acc)
+        um.GetUsers().ToList().ForEach(Sub(r)
+                                           Console.WriteLine(r.DisplayName)
+                                       End Sub)
+    End Sub
     <TestMethod()> Public Sub TestUserUpdate()
         ConnectionSetting.DomainName = "http://failuretest.chinacloudsites.cn"
         Dim acc As New Account("sms")
