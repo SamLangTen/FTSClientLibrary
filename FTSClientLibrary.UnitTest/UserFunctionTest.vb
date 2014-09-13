@@ -28,4 +28,12 @@ Imports FTSClientLibrary.Client
         user.SaveChanges()
         user.SetPassword("aaaaaaa")
     End Sub
+    <TestMethod()> Public Sub TestUserRolesGetting()
+        ConnectionSetting.DomainName = "http://failuretest.chinacloudsites.cn"
+        Dim acc As New Account("sms")
+        acc.Login("1111111", True)
+        UserRole.GetRoles(acc).ToList().ForEach(Sub(r)
+                                                    Console.WriteLine("Name:{0},Description:{1}", r.Name, r.Description)
+                                                End Sub)
+    End Sub
 End Class

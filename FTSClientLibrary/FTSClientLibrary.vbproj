@@ -72,6 +72,7 @@
     <Compile Include="Dtos\UserCreationDto.vb" />
     <Compile Include="Dtos\UserInfoDto.vb" />
     <Compile Include="Dtos\UserLoginDto.vb" />
+    <Compile Include="Dtos\UserRoleDto.vb" />
     <Compile Include="Dtos\UserUpdateDto.vb" />
     <Compile Include="Exception\UserException.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -90,7 +91,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Users\User.vb" />
-    <Compile Include="Users\UserManager.vb" />
+    <Compile Include="Users\UserRole.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
