@@ -66,6 +66,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseMethods\Dtos\FailureTypeDto.vb" />
+    <Compile Include="BaseMethods\Dtos\Report\FailureItemDto.vb" />
+    <Compile Include="BaseMethods\Dtos\Report\FailureReportDto.vb" />
+    <Compile Include="BaseMethods\Dtos\Report\FeedbackDto.vb" />
+    <Compile Include="BaseMethods\Dtos\Report\ReportingDto.vb" />
     <Compile Include="Libraries\Account.vb" />
     <Compile Include="BaseMethods\NetHelper.vb" />
     <Compile Include="Libraries\ConnectionSetting.vb" />

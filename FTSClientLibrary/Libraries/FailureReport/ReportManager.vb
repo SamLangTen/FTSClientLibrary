@@ -22,7 +22,19 @@ Namespace Client
             Me.actionAccount = AuthorizationAccount
         End Sub
 
+        ''' <summary>
+        ''' 获取所有提交的报表
+        ''' </summary>
+        Public Function GetSubmittedReports(Query As String) As FailureReport()
 
+        End Function
+
+        ''' <summary>
+        ''' 获取所有提交的报表
+        ''' </summary>
+        Public Function GetSubmittedReports() As FailureReport()
+            Return Me.GetSubmittedReports("")
+        End Function
 
     End Class
 End Namespace
