@@ -2,7 +2,8 @@
 Imports System.IO
 Imports System.Text
 Imports Newtonsoft.Json
-Imports FTSClientLibrary.Connection
+Imports FTSClientLibrary.Client
+
 Friend Class NetHelper
 
     Friend Shared Function SendToUrl(Url As String, Data As Byte(), Cookies As CookieContainer, Method As String) As RequestResponse

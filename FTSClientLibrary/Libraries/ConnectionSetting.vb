@@ -1,5 +1,5 @@
 ﻿
-Namespace Connection
+Namespace Client
     ''' <summary>
     ''' 用于连接到FailureTroubleShooting服务器的连接设置文件
     ''' </summary>
