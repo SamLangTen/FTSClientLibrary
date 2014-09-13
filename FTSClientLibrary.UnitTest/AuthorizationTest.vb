@@ -1,6 +1,6 @@
 ﻿Imports System.Text
 Imports Microsoft.VisualStudio.TestTools.UnitTesting
-Imports FTSClientLibrary.Client
+Imports FailureTroubleShooting.FTSClient.Client
 <TestClass()> Public Class AuthorizationTest
 
     <TestMethod()> Public Sub TestAccountLoginAndLogoff()

@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D200F7D2-7E26-432B-A8D5-056059A6B7D9}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>FTSClientLibrary</RootNamespace>
+    <RootNamespace>FailureTroubleShooting.FTSClient</RootNamespace>
     <AssemblyName>FTSClientLibrary</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
@@ -77,6 +77,11 @@
     <Compile Include="BaseMethods\Dtos\UserUpdateDto.vb" />
     <Compile Include="Libraries\Exception\FailureTypeException.vb" />
     <Compile Include="Libraries\Exception\UserException.vb" />
+    <Compile Include="Libraries\FailureReport\FailureItem.vb" />
+    <Compile Include="Libraries\FailureReport\FailureReport.vb" />
+    <Compile Include="Libraries\FailureReport\FeedbackItem.vb" />
+    <Compile Include="Libraries\FailureReport\ReportManager.vb" />
+    <Compile Include="Libraries\FailureReport\ReportStateEnum.vb" />
     <Compile Include="Libraries\FailureType.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

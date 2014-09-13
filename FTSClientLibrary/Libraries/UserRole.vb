@@ -2,8 +2,8 @@
 Imports System.IO
 Imports System.Text
 Imports System.Net
-Imports FTSClientLibrary.Dtos
-Imports FTSClientLibrary.Exceptions
+Imports FailureTroubleShooting.FTSClient.Dtos
+Imports FailureTroubleShooting.FTSClient.Exceptions
 Namespace Client
     ''' <summary>
     ''' 表示一个待管理的用户角色
