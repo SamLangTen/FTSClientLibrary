@@ -1,6 +1,5 @@
 ﻿Imports System.Text
 Imports Microsoft.VisualStudio.TestTools.UnitTesting
-Imports FTSClientLibrary.Connection
 Imports FTSClientLibrary.Client
 <TestClass()> Public Class AuthorizationTest
 
