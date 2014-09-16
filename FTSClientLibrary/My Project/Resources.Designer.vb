@@ -39,7 +39,7 @@ Namespace My.Resources
         Friend ReadOnly Property ResourceManager() As Global.System.Resources.ResourceManager
             Get
                 If Object.ReferenceEquals(resourceMan, Nothing) Then
-                    Dim temp As Global.System.Resources.ResourceManager = New Global.System.Resources.ResourceManager("FTSClientLibrary.Resources", GetType(Resources).Assembly)
+                    Dim temp As Global.System.Resources.ResourceManager = New Global.System.Resources.ResourceManager("FailureTroubleShooting.FTSClient.Resources", GetType(Resources).Assembly)
                     resourceMan = temp
                 End If
                 Return resourceMan
@@ -75,6 +75,15 @@ Namespace My.Resources
         Friend ReadOnly Property UserException_HasLogoff() As String
             Get
                 Return ResourceManager.GetString("UserException_HasLogoff", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似 You do not have permission to access. 的本地化字符串。
+        '''</summary>
+        Friend ReadOnly Property UserException_NoPermission() As String
+            Get
+                Return ResourceManager.GetString("UserException_NoPermission", resourceCulture)
             End Get
         End Property
     End Module

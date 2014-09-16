@@ -2,7 +2,7 @@
 Imports System.IO
 Imports System.Text
 Imports Newtonsoft.Json
-Imports FTSClientLibrary.Client
+Imports FailureTroubleShooting.FTSClient.Client
 
 Friend Class NetHelper
 
