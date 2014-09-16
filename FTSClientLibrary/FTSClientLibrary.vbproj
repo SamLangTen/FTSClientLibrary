@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="BaseMethods\Dtos\FailureTypeDto.vb" />
     <Compile Include="BaseMethods\Dtos\Report\FailureItemDto.vb" />
+    <Compile Include="BaseMethods\Dtos\Report\FailureReportCreationDto.vb" />
     <Compile Include="BaseMethods\Dtos\Report\FailureReportDto.vb" />
     <Compile Include="BaseMethods\Dtos\Report\FeedbackDto.vb" />
     <Compile Include="BaseMethods\Dtos\Report\ReportingDto.vb" />

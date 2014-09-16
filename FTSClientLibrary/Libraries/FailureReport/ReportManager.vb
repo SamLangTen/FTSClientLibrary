@@ -53,6 +53,7 @@ Namespace Client
             Return repos.ToArray()
         End Function
 
+
         ''' <summary>
         ''' 获取所有提交的报表
         ''' </summary>
@@ -61,12 +62,18 @@ Namespace Client
         End Function
 
         ''' <summary>
-        ''' t提交一份
+        ''' 提交一份报表
         ''' </summary>
-        ''' <param name="Report"></param>
-        ''' <remarks></remarks>
-        Public Sub SubmitReport(Report As FailureReport)
-
+        ''' <param name="Report">要提交的报表</param>
+        Public Sub SubmitReport(Items As FailureItem(), AdditionInfo As String)
+            If actionAccount.Roles Is Nothing AndAlso actionAccount.Roles.Contains("Reporter") = False Then Throw New UserException(My.Resources.UserException_NoPermission)
+            Dim fi = (From i In Items Select New FailureItemDto With {.Count = i.Count, .Detail = i.Detail, .TypeId = i.Type.Id, .TypeName = i.Type.Name})
+            Dim fro As New FailureReportCreationDto()
+            fro.AdditionInfo = AdditionInfo
+            fro.Items = fi.ToArray()
+            Dim l As String = JsonConvert.SerializeObject(fro)
+            Dim rr As RequestResponse = NetHelper.SendToUrl("api/FailureReports", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(fro)), Me.actionAccount.cookies, "POST")
+            If rr.StatusCode <> HttpStatusCode.Created Then Throw New ReportException(rr.StatusDescription)
         End Sub
 
     End Class
