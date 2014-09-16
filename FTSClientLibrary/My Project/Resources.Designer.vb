@@ -77,5 +77,14 @@ Namespace My.Resources
                 Return ResourceManager.GetString("UserException_HasLogoff", resourceCulture)
             End Get
         End Property
+        
+        '''<summary>
+        '''  查找类似 You do not have permission to access. 的本地化字符串。
+        '''</summary>
+        Friend ReadOnly Property UserException_NoPermission() As String
+            Get
+                Return ResourceManager.GetString("UserException_NoPermission", resourceCulture)
+            End Get
+        End Property
     End Module
 End Namespace

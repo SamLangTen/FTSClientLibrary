@@ -26,7 +26,11 @@ Namespace Client
         ''' 获取所有提交的报表
         ''' </summary>
         Public Function GetSubmittedReports(Query As String) As FailureReport()
-
+            If actionAccount.Roles Is Nothing AndAlso actionAccount.Roles.Contains("Reporter") = False Then Throw New UserException(My.Resources.UserException_NoPermission)
+            Dim rr As RequestResponse = NetHelper.RequestToUrl("api/FailureReports/MyReports" + If(Query = "", "", "?") + Query, Me.actionAccount.cookies, "GET")
+            If rr.StatusCode <> HttpStatusCode.OK Then Throw New ReportException(rr.StatusDescription)
+            Dim reports As List(Of FailureReport) = JsonConvert.DeserializeObject(rr.Contents, GetType(List(Of FailureReport)))
+            Return reports.ToArray()
         End Function
 
         ''' <summary>
@@ -35,6 +39,7 @@ Namespace Client
         Public Function GetSubmittedReports() As FailureReport()
             Return Me.GetSubmittedReports("")
         End Function
+
 
     End Class
 End Namespace

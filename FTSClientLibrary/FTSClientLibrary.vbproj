@@ -80,6 +80,7 @@
     <Compile Include="BaseMethods\Dtos\UserRoleDto.vb" />
     <Compile Include="BaseMethods\Dtos\UserUpdateDto.vb" />
     <Compile Include="Libraries\Exception\FailureTypeException.vb" />
+    <Compile Include="Libraries\Exception\ReportException.vb" />
     <Compile Include="Libraries\Exception\UserException.vb" />
     <Compile Include="Libraries\FailureReport\FailureItem.vb" />
     <Compile Include="Libraries\FailureReport\FailureReport.vb" />

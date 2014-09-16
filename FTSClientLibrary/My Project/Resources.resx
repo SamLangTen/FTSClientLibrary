@@ -123,4 +123,7 @@
   <data name="UserException_HasLogoff" xml:space="preserve">
     <value>This Account reference hasn't been logined.</value>
   </data>
+  <data name="UserException_NoPermission" xml:space="preserve">
+    <value>You do not have permission to access.</value>
+  </data>
 </root>
