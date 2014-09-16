@@ -29,8 +29,28 @@ Namespace Client
             If actionAccount.Roles Is Nothing AndAlso actionAccount.Roles.Contains("Reporter") = False Then Throw New UserException(My.Resources.UserException_NoPermission)
             Dim rr As RequestResponse = NetHelper.RequestToUrl("api/FailureReports/MyReports" + If(Query = "", "", "?") + Query, Me.actionAccount.cookies, "GET")
             If rr.StatusCode <> HttpStatusCode.OK Then Throw New ReportException(rr.StatusDescription)
-            Dim reports As List(Of FailureReport) = JsonConvert.DeserializeObject(rr.Contents, GetType(List(Of FailureReport)))
-            Return reports.ToArray()
+            Dim reports As List(Of FailureReportDto) = JsonConvert.DeserializeObject(rr.Contents, GetType(List(Of FailureReportDto)))
+            '获取所有的FailureTypes
+            Dim ft As FailureType() = FailureType.GetFailureTypes(Me.actionAccount)
+            '读取
+            Dim repos = (From item In reports Select New FailureReport With {.Class = item.Class,
+                                                                             .Grade = item.Grade,
+                                                                             .Id = item.Id,
+                                                                             .MaintenanceStaffName = item.MaintenanceStaffName,
+                                                                             .MaintenanceStaffId = item.MaintenanceStaffId,
+                                                                             .ReporterName = item.ReporterName,
+                                                                             .State = [Enum].Parse(GetType(ReportStateEnum), item.State),
+                                                                             .Time = item.Time,
+                                                                             .Title = item.Title,
+                                                                             .Feedback = (Function()
+                                                                                              If item.FeedbackId Is Nothing Then Return Nothing
+                                                                                              Dim rr2 As RequestResponse = NetHelper.RequestToUrl("api/FailureReports/" + item.Id.ToString() + "/Feedback", actionAccount.cookies, "GET")
+                                                                                              Dim fbdto As FeedbackDto = JsonConvert.DeserializeObject(rr2.Contents, GetType(FeedbackDto))
+                                                                                              Return New FeedbackItem() With {.Comment = fbdto.Comment, .IsFinished = fbdto.IsFinished, .Rate = fbdto.Rate}
+                                                                                          End Function).Invoke(),
+            .Items = (From i In item.Items Select New FailureItem With {.Count = i.Count, .Detail = i.Detail, .Type = ft.SingleOrDefault(Function(r) r.Id = i.TypeId)}).ToArray()
+                                                                            })
+            Return repos.ToArray()
         End Function
 
         ''' <summary>
@@ -40,6 +60,14 @@ Namespace Client
             Return Me.GetSubmittedReports("")
         End Function
 
+        ''' <summary>
+        ''' t提交一份
+        ''' </summary>
+        ''' <param name="Report"></param>
+        ''' <remarks></remarks>
+        Public Sub SubmitReport(Report As FailureReport)
+
+        End Sub
 
     End Class
 End Namespace

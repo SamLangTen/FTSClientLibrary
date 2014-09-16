@@ -10,7 +10,7 @@ Namespace Client
         Public Property Time As DateTime
         Public Property Title As String
         Public Property ReporterName As String
-        Public Property MaintenanceStaffId As Integer
+        Public Property MaintenanceStaffId As Integer?
         Public Property MaintenanceStaffName As String
         Public Property State As ReportStateEnum
         Public Property Grade As Integer
